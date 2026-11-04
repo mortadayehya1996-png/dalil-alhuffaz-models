@@ -1,0 +1,24 @@
+name: publish
+# each folder under parts/ is one release: its files, cut in parts below GitHub's 100 MB limit, are joined again and published whole
+on:
+  push:
+    branches: [main]
+    paths: ['parts/**']
+permissions: {contents: write}
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Join the parts
+        run: |
+          for d in parts/*/; do t=$(basename $d); mkdir -p out/$t
+            for f in $(ls $d | sed 's/\.part[0-9]*$//' | sort -u); do
+              if ls $d$f.part* >/dev/null 2>&1; then cat $(ls $d$f.part* | sort -V) > out/$t/$f; else cp $d$f out/$t/$f; fi
+            done; ls -l out/$t; done
+      - name: Publish each folder as a release
+        env: {GH_TOKEN: "${{ github.token }}"}
+        run: |
+          for d in out/*/; do t=$(basename $d)
+            if gh release view $t >/dev/null 2>&1; then gh release upload $t $d* --clobber; else gh release create $t $d* --title "$t" --notes "دليل الحافظ: $t"; fi
+          done
