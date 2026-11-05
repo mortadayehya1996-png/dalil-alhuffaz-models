@@ -1,0 +1,22 @@
+{
+ "name": "deepdml/whisper-small-ar-quran-mix-norm (q8)",
+ "mels": 80,
+ "files": [
+  {
+   "path": "encoder.onnx",
+   "size": 92326160
+  },
+  {
+   "path": "decoder.onnx",
+   "size": 196583990
+  },
+  {
+   "path": "generation_config.json",
+   "size": 3868
+  },
+  {
+   "path": "vocab.json",
+   "size": 1036584
+  }
+ ]
+}
