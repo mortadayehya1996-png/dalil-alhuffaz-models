@@ -1,0 +1,22 @@
+{
+ "name": "tarteel-ai/whisper-base-ar-quran (q8) small",
+ "mels": 80,
+ "files": [
+  {
+   "path": "encoder.onnx",
+   "size": 23201316
+  },
+  {
+   "path": "decoder.onnx",
+   "size": 80248990
+  },
+  {
+   "path": "generation_config.json",
+   "size": 3807
+  },
+  {
+   "path": "vocab.json",
+   "size": 1036558
+  }
+ ]
+}
